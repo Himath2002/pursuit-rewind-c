@@ -1,0 +1,32 @@
+name: C CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Build and check (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Show compiler
+        run: cc --version
+
+      - name: Build with strict warnings
+        run: make
+
+      - name: Run focused checks
+        run: make check
