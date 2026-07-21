@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="680" viewBox="0 0 1440 680" role="img">
+  <title>Pursuit Rewind map-driven C game</title>
+  <desc>A deep indigo banner with the Pursuit Rewind identity, a toroidal game board, and an undo snapshot stack.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#131225"/>
+      <stop offset=".58" stop-color="#211D3A"/>
+      <stop offset="1" stop-color="#30305B"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A78BFA" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#67E8F9" stop-opacity=".02"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#090814" flood-opacity=".58"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="680" rx="34" fill="url(#background)"/>
+  <circle cx="1295" cy="58" r="310" fill="url(#glow)"/>
+  <circle cx="105" cy="650" r="210" fill="#FDBA74" opacity=".06"/>
+
+  <g transform="translate(88 105)">
+    <rect width="76" height="76" rx="20" fill="#A78BFA"/>
+    <path d="M20 24h36v29H20Z" fill="#211D3A"/>
+    <path d="M27 38h21M27 38l7-7M27 38l7 7" fill="none" stroke="#A78BFA" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <text x="0" y="137" fill="#67E8F9" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="3">MAP-DRIVEN • REVERSIBLE</text>
+    <text x="0" y="210" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="62" font-weight="800">Pursuit Rewind</text>
+    <text x="0" y="260" fill="#E3E0F2" font-family="Arial, sans-serif" font-size="27">Load the map. Cross the edge. Rewind the turn.</text>
+    <text x="0" y="325" fill="#AAA6C3" font-family="Arial, sans-serif" font-size="20">A toroidal terminal chase with validated map input,</text>
+    <text x="0" y="357" fill="#AAA6C3" font-family="Arial, sans-serif" font-size="20">paired actor snapshots, and constant-time undo.</text>
+
+    <g transform="translate(0 413)">
+      <rect width="140" height="46" rx="23" fill="#A78BFA"/>
+      <text x="70" y="29" text-anchor="middle" fill="#211D3A" font-family="Arial, sans-serif" font-size="14" font-weight="800">C11</text>
+      <rect x="154" width="156" height="46" rx="23" fill="none" stroke="#67E8F9" stroke-width="1.5"/>
+      <text x="232" y="29" text-anchor="middle" fill="#E4FAFC" font-family="Arial, sans-serif" font-size="14" font-weight="700">MAP FILES</text>
+      <rect x="324" width="156" height="46" rx="23" fill="none" stroke="#FDBA74" stroke-width="1.5"/>
+      <text x="402" y="29" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="700">O(1) UNDO</text>
+    </g>
+  </g>
+
+  <g transform="translate(760 62)" filter="url(#shadow)">
+    <rect width="604" height="556" rx="24" fill="#080712"/>
+    <rect width="604" height="54" rx="24" fill="#332E57"/>
+    <rect y="30" width="604" height="24" fill="#332E57"/>
+    <circle cx="28" cy="27" r="7" fill="#FF7B72"/>
+    <circle cx="52" cy="27" r="7" fill="#FDBA74"/>
+    <circle cx="76" cy="27" r="7" fill="#7EE787"/>
+    <text x="302" y="32" text-anchor="middle" fill="#BCB7D2" font-family="Arial, sans-serif" font-size="12">pursuit-rewind — maps/edge-run.map</text>
+
+    <text x="32" y="91" fill="#A78BFA" font-family="Courier New, monospace" font-size="14">$ ./build/pursuit-rewind maps/edge-run.map</text>
+    <text x="32" y="126" fill="#67E8F9" font-family="Courier New, monospace" font-size="14" font-weight="700">PURSUIT REWIND</text>
+    <text x="176" y="126" fill="#77738E" font-family="Courier New, monospace" font-size="12">| W/A/S/D move | U undo | Q quit</text>
+
+    <!-- Accurate 6 × 12 playable board from maps/edge-run.map. -->
+    <g transform="translate(34 160)">
+      <rect width="308" height="176" rx="8" fill="#0E0C1C" stroke="#696184" stroke-width="3"/>
+      <path d="M22 0V176M44 0V176M66 0V176M88 0V176M110 0V176M132 0V176M154 0V176M176 0V176M198 0V176M220 0V176M242 0V176M264 0V176M286 0V176" stroke="#27233E" stroke-width="1"/>
+      <path d="M0 22H308M0 44H308M0 66H308M0 88H308M0 110H308M0 132H308M0 154H308" stroke="#27233E" stroke-width="1"/>
+      <text x="33" y="40" text-anchor="middle" fill="#7EE787" font-family="Courier New, monospace" font-size="18" font-weight="800">P</text>
+      <text x="143" y="84" text-anchor="middle" fill="#FDBA74" font-family="Courier New, monospace" font-size="18" font-weight="800">@</text>
+      <text x="275" y="150" text-anchor="middle" fill="#FF7B72" font-family="Courier New, monospace" font-size="18" font-weight="800">~</text>
+      <path d="M8 77l-6 11 6 11M300 77l6 11-6 11" fill="none" stroke="#67E8F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g transform="translate(370 160)">
+      <text x="0" y="10" fill="#A78BFA" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1.2">UNDO STACK</text>
+      <g transform="translate(0 28)">
+        <rect width="200" height="60" rx="12" fill="#2F2950" stroke="#7468A1"/>
+        <text x="16" y="24" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12" font-weight="700">Turn 2</text>
+        <text x="16" y="44" fill="#B8B2CE" font-family="Courier New, monospace" font-size="10">P(1,2)  ~(6,11)</text>
+      </g>
+      <g transform="translate(0 98)">
+        <rect width="200" height="60" rx="12" fill="#211D3A" stroke="#51486F"/>
+        <text x="16" y="24" fill="#E2DFF0" font-family="Arial, sans-serif" font-size="12" font-weight="700">Turn 1</text>
+        <text x="16" y="44" fill="#938DAA" font-family="Courier New, monospace" font-size="10">P(1,1)  ~(6,12)</text>
+      </g>
+      <path d="M100 168v22M94 184l6 7 6-7" fill="none" stroke="#FDBA74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="100" y="213" text-anchor="middle" fill="#FDBA74" font-family="Arial, sans-serif" font-size="11" font-weight="800">U RESTORES BOTH</text>
+    </g>
+
+    <rect x="34" y="395" width="536" height="58" rx="12" fill="#17142A" stroke="#3E375D"/>
+    <text x="52" y="420" fill="#A78BFA" font-family="Arial, sans-serif" font-size="11" font-weight="800">TIMELINE</text>
+    <text x="52" y="441" fill="#C7C2D8" font-family="Arial, sans-serif" font-size="12">snapshot → player → target check → pursuer → capture check</text>
+
+    <g transform="translate(34 467)">
+      <rect width="536" height="55" rx="12" fill="#101D22" stroke="#27505A"/>
+      <text x="18" y="23" fill="#67E8F9" font-family="Arial, sans-serif" font-size="11" font-weight="800">MAP CONTRACT</text>
+      <text x="18" y="42" fill="#91AFB5" font-family="Courier New, monospace" font-size="11">0 empty   1 player   2 target   3 pursuer</text>
+    </g>
+  </g>
+</svg>

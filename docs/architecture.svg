@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img">
+  <title>Pursuit Rewind architecture</title>
+  <desc>Three aligned paths explain validated map loading, a reversible turn pipeline, and constant-time undo restoration.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10Z" fill="#6D5BD0"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="9" stdDeviation="11" flood-color="#282143" flood-opacity=".11"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="760" rx="32" fill="#F6F4FA"/>
+  <text x="72" y="61" fill="#282143" font-family="Arial, sans-serif" font-size="29" font-weight="800">Three paths, one reversible game state</text>
+  <text x="72" y="93" fill="#666079" font-family="Arial, sans-serif" font-size="16">Validate before play • snapshot before mutation • restore both actors together</text>
+
+  <g fill="#898398" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1.4">
+    <text x="72" y="137">LOAD PATH</text>
+    <text x="72" y="349">TURN PATH</text>
+    <text x="72" y="561">UNDO PATH</text>
+  </g>
+
+  <!-- Load path -->
+  <g transform="translate(72 154)" filter="url(#shadow)">
+    <rect width="250" height="138" rx="20" fill="#FFFFFF" stroke="#D5D0DF"/>
+    <text x="24" y="35" fill="#6D5BD0" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">MAP FILE</text>
+    <text x="24" y="67" fill="#282143" font-family="Arial, sans-serif" font-size="18" font-weight="800">rows × columns</text>
+    <text x="24" y="94" fill="#666079" font-family="Courier New, monospace" font-size="11">0 empty • 1 P • 2 @ • 3 ~</text>
+    <text x="24" y="116" fill="#898398" font-family="Arial, sans-serif" font-size="10">Exactly one of each actor</text>
+  </g>
+  <path d="M322 223H392" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(414 154)" filter="url(#shadow)">
+    <rect width="386" height="138" rx="20" fill="#FFFFFF" stroke="#D5D0DF"/>
+    <text x="24" y="35" fill="#6D5BD0" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">MAP LOADER</text>
+    <text x="24" y="67" fill="#282143" font-family="Arial, sans-serif" font-size="18" font-weight="800">Reject malformed state early</text>
+    <text x="24" y="94" fill="#666079" font-family="Arial, sans-serif" font-size="11">Dimensions • cell domain • duplicates • truncation</text>
+    <text x="24" y="116" fill="#666079" font-family="Arial, sans-serif" font-size="11">Missing actors • trailing data</text>
+  </g>
+  <path d="M800 223H870" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(892 154)" filter="url(#shadow)">
+    <rect width="476" height="138" rx="20" fill="#282143"/>
+    <text x="26" y="35" fill="#A78BFA" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">GAMESTATE</text>
+    <text x="26" y="68" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="19" font-weight="800">Validated source of truth</text>
+    <text x="26" y="96" fill="#C9C4D7" font-family="Arial, sans-serif" font-size="12">dimensions • player • pursuer • target • status</text>
+    <text x="26" y="118" fill="#9791A9" font-family="Arial, sans-serif" font-size="10">No duplicated character grid</text>
+  </g>
+
+  <!-- Turn path -->
+  <g transform="translate(72 366)" filter="url(#shadow)">
+    <rect width="250" height="138" rx="20" fill="#FFF3E8" stroke="#F2C99F"/>
+    <text x="24" y="35" fill="#A55A18" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">1 • SNAPSHOT</text>
+    <text x="24" y="68" fill="#573519" font-family="Arial, sans-serif" font-size="18" font-weight="800">Push both actors</text>
+    <text x="24" y="96" fill="#7E5B3C" font-family="Arial, sans-serif" font-size="11">O(1) linked-stack insertion</text>
+    <text x="24" y="118" fill="#9A795B" font-family="Arial, sans-serif" font-size="10">Only accepted directions are stored</text>
+  </g>
+  <path d="M322 435H392" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(414 366)" filter="url(#shadow)">
+    <rect width="250" height="138" rx="20" fill="#FFFFFF" stroke="#D5D0DF"/>
+    <text x="24" y="35" fill="#6D5BD0" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">2 • PLAYER</text>
+    <text x="24" y="68" fill="#282143" font-family="Arial, sans-serif" font-size="18" font-weight="800">Move with wrapping</text>
+    <text x="24" y="96" fill="#666079" font-family="Arial, sans-serif" font-size="11">Opposite edge on boundary exit</text>
+    <text x="24" y="118" fill="#898398" font-family="Arial, sans-serif" font-size="10">Target arrival ends the turn immediately</text>
+  </g>
+  <path d="M664 435H734" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(756 366)" filter="url(#shadow)">
+    <rect width="250" height="138" rx="20" fill="#FFFFFF" stroke="#D5D0DF"/>
+    <text x="24" y="35" fill="#6D5BD0" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">3 • PURSUER</text>
+    <text x="24" y="68" fill="#282143" font-family="Arial, sans-serif" font-size="18" font-weight="800">Chase or wrap</text>
+    <text x="24" y="96" fill="#666079" font-family="Arial, sans-serif" font-size="11">Direct when adjacent; random otherwise</text>
+    <text x="24" y="118" fill="#898398" font-family="Arial, sans-serif" font-size="10">Target cell remains protected</text>
+  </g>
+  <path d="M1006 435H1076" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(1098 366)" filter="url(#shadow)">
+    <rect width="270" height="138" rx="20" fill="#E7F7FA" stroke="#A9DCE3"/>
+    <text x="24" y="35" fill="#197787" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">4 • RESOLVE + DRAW</text>
+    <text x="24" y="68" fill="#164650" font-family="Arial, sans-serif" font-size="18" font-weight="800">Capture then render</text>
+    <text x="24" y="96" fill="#47717A" font-family="Arial, sans-serif" font-size="11">Derive board cells from GameState</text>
+    <text x="24" y="118" fill="#6C9299" font-family="Arial, sans-serif" font-size="10">ANSI redraw • legend • undo depth</text>
+  </g>
+
+  <!-- Undo path -->
+  <g transform="translate(72 578)" filter="url(#shadow)">
+    <rect width="250" height="112" rx="20" fill="#2F2950"/>
+    <text x="24" y="34" fill="#A78BFA" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">U COMMAND</text>
+    <text x="24" y="67" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="18" font-weight="800">Request rewind</text>
+    <text x="24" y="91" fill="#BDB7CF" font-family="Arial, sans-serif" font-size="11">No pursuer move is triggered</text>
+  </g>
+  <path d="M322 634H430" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(452 578)" filter="url(#shadow)">
+    <rect width="400" height="112" rx="20" fill="#FFF3E8" stroke="#F2C99F"/>
+    <text x="24" y="34" fill="#A55A18" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">TURNHISTORY</text>
+    <text x="24" y="67" fill="#573519" font-family="Arial, sans-serif" font-size="18" font-weight="800">Pop the newest paired snapshot</text>
+    <text x="24" y="91" fill="#7E5B3C" font-family="Arial, sans-serif" font-size="11">O(1) removal • allocation released immediately</text>
+  </g>
+  <path d="M852 634H960" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(982 578)" filter="url(#shadow)">
+    <rect width="386" height="112" rx="20" fill="#E9E4FB" stroke="#C5B8F0"/>
+    <text x="24" y="34" fill="#6D5BD0" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">ATOMIC RESTORE</text>
+    <text x="24" y="67" fill="#352A6B" font-family="Arial, sans-serif" font-size="18" font-weight="800">Player + pursuer move together</text>
+    <text x="24" y="91" fill="#6E6590" font-family="Arial, sans-serif" font-size="11">Target and dimensions remain stable</text>
+  </g>
+</svg>
