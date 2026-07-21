@@ -33,8 +33,8 @@
     <rect width="386" height="138" rx="20" fill="#FFFFFF" stroke="#D5D0DF"/>
     <text x="24" y="35" fill="#6D5BD0" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">MAP LOADER</text>
     <text x="24" y="67" fill="#282143" font-family="Arial, sans-serif" font-size="18" font-weight="800">Reject malformed state early</text>
-    <text x="24" y="94" fill="#666079" font-family="Arial, sans-serif" font-size="11">Dimensions • cell domain • duplicates • truncation</text>
-    <text x="24" y="116" fill="#666079" font-family="Arial, sans-serif" font-size="11">Missing actors • trailing data</text>
+    <text x="24" y="94" fill="#666079" font-family="Arial, sans-serif" font-size="11">Dimensions • numeric bounds • cell domain</text>
+    <text x="24" y="116" fill="#666079" font-family="Arial, sans-serif" font-size="11">Duplicates • missing actors • truncation • trailing data</text>
   </g>
   <path d="M800 223H870" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>
   <g transform="translate(892 154)" filter="url(#shadow)">
@@ -66,7 +66,7 @@
     <rect width="250" height="138" rx="20" fill="#FFFFFF" stroke="#D5D0DF"/>
     <text x="24" y="35" fill="#6D5BD0" font-family="Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1">3 • PURSUER</text>
     <text x="24" y="68" fill="#282143" font-family="Arial, sans-serif" font-size="18" font-weight="800">Chase or wrap</text>
-    <text x="24" y="96" fill="#666079" font-family="Arial, sans-serif" font-size="11">Direct when adjacent; random otherwise</text>
+    <text x="24" y="96" fill="#666079" font-family="Arial, sans-serif" font-size="11">Seam-aware adjacent chase; random otherwise</text>
     <text x="24" y="118" fill="#898398" font-family="Arial, sans-serif" font-size="10">Target cell remains protected</text>
   </g>
   <path d="M1006 435H1076" fill="none" stroke="#6D5BD0" stroke-width="2.5" marker-end="url(#arrow)"/>

@@ -36,7 +36,7 @@ history stack.
 - <strong>Fail-fast validation</strong> — malformed dimensions, cell values,
   duplicates, missing actors, truncation, and trailing data are rejected.
 - <strong>Toroidal movement</strong> — crossing an edge re-enters from the
-  opposite side.
+  opposite side, including direct pursuit across a map seam.
 - <strong>Atomic undo</strong> — player and pursuer positions are restored
   together from an O(1) LIFO stack.
 - <strong>Immediate victory</strong> — reaching the target ends the turn before
@@ -113,7 +113,8 @@ Example:
 0 0 0 0 0 0 3
 ~~~
 
-Dimensions must contain 5-60 rows and 5-160 columns. Extra cells and nonnumeric
+Dimensions must contain 5-60 rows and 5-160 columns. Integer tokens are parsed
+with explicit range checks; oversized values, extra cells, and nonnumeric
 trailing data are rejected instead of being silently ignored.
 
 ## Architecture
@@ -188,10 +189,11 @@ The build uses:
 Focused checks verify:
 
 - the included classic map and decoded actor positions;
-- duplicate, truncated, and invalid-cell rejection;
+- invalid dimensions, duplicate or missing actors, truncation, invalid and
+  oversized cells, and trailing-data rejection;
 - horizontal and vertical player wrapping;
 - wrapped pursuer movement and target-cell protection;
-- adjacent pursuit;
+- adjacent pursuit within the map and across a wrapped boundary;
 - LIFO history restoration of both actors;
 - target-arrival precedence.
 

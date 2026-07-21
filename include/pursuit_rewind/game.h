@@ -31,11 +31,19 @@ typedef struct {
     GameStatus status;
 } GameState;
 
+/** Returns whether dimensions satisfy the supported map contract. */
 bool game_dimensions_are_valid(int rows, int columns);
+
+/** Returns whether two positions identify the same grid cell. */
 bool game_positions_equal(Position first, Position second);
+
+/** Returns whether a position belongs to the loaded playable grid. */
 bool game_position_is_valid(const GameState *state, Position position);
+
+/** Resolves victory before capture for the current actor positions. */
 void game_update_status(GameState *state);
+
+/** Returns the user-facing message associated with a game status. */
 const char *game_status_message(GameStatus status);
 
 #endif
-

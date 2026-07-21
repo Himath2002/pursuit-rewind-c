@@ -14,13 +14,26 @@ static int wrap_coordinate(int value, int maximum)
     return value;
 }
 
-static int step_toward(int difference)
+static int shortest_wrapped_delta(int from, int to, int maximum)
+{
+    int delta = to - from;
+
+    if (delta > maximum / 2) {
+        delta -= maximum;
+    } else if (delta < -(maximum / 2)) {
+        delta += maximum;
+    }
+
+    return delta;
+}
+
+static int unit_step(int difference)
 {
     if (difference > 0) {
-        return -1;
+        return 1;
     }
     if (difference < 0) {
-        return 1;
+        return -1;
     }
     return 0;
 }
@@ -76,20 +89,34 @@ void movement_advance_pursuer(GameState *state, int random_direction)
         {1, 1}
     };
     Position candidate;
-    int row_difference;
-    int column_difference;
+    int row_delta;
+    int column_delta;
 
     if (state == NULL || state->status != GAME_RUNNING) {
         return;
     }
 
-    row_difference = state->pursuer.row - state->player.row;
-    column_difference = state->pursuer.column - state->player.column;
+    row_delta = shortest_wrapped_delta(
+            state->pursuer.row,
+            state->player.row,
+            state->rows
+    );
+    column_delta = shortest_wrapped_delta(
+            state->pursuer.column,
+            state->player.column,
+            state->columns
+    );
     candidate = state->pursuer;
 
-    if (abs(row_difference) <= 1 && abs(column_difference) <= 1) {
-        candidate.row += step_toward(row_difference);
-        candidate.column += step_toward(column_difference);
+    if (abs(row_delta) <= 1 && abs(column_delta) <= 1) {
+        candidate.row = wrap_coordinate(
+                candidate.row + unit_step(row_delta),
+                state->rows
+        );
+        candidate.column = wrap_coordinate(
+                candidate.column + unit_step(column_delta),
+                state->columns
+        );
     } else if (random_direction >= 0 && random_direction < 8) {
         candidate.row += direction_delta[random_direction].row;
         candidate.column += direction_delta[random_direction].column;
@@ -101,4 +128,3 @@ void movement_advance_pursuer(GameState *state, int random_direction)
         state->pursuer = candidate;
     }
 }
-

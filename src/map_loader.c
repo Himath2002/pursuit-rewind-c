@@ -1,6 +1,63 @@
 #include "pursuit_rewind/map_loader.h"
 
+#include <ctype.h>
+#include <errno.h>
+#include <limits.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+typedef enum {
+    TOKEN_READ_OK,
+    TOKEN_READ_END,
+    TOKEN_READ_INVALID
+} TokenReadResult;
+
+static TokenReadResult read_integer_token(FILE *file, int *value)
+{
+    char token[64];
+    char *end;
+    long parsed;
+    size_t length = 0U;
+    int character;
+    bool token_is_too_long = false;
+
+    do {
+        character = fgetc(file);
+    } while (character != EOF && isspace((unsigned char)character));
+
+    if (character == EOF) {
+        return TOKEN_READ_END;
+    }
+
+    do {
+        if (length + 1U < sizeof(token)) {
+            token[length++] = (char)character;
+        } else {
+            token_is_too_long = true;
+        }
+        character = fgetc(file);
+    } while (character != EOF && !isspace((unsigned char)character));
+
+    if (token_is_too_long) {
+        return TOKEN_READ_INVALID;
+    }
+
+    token[length] = '\0';
+    errno = 0;
+    end = NULL;
+    parsed = strtol(token, &end, 10);
+    if (errno == ERANGE
+            || end == token
+            || *end != '\0'
+            || parsed < INT_MIN
+            || parsed > INT_MAX) {
+        return TOKEN_READ_INVALID;
+    }
+
+    *value = (int)parsed;
+    return TOKEN_READ_OK;
+}
 
 MapLoadResult map_loader_read(const char *path, GameState *state)
 {
@@ -22,7 +79,8 @@ MapLoadResult map_loader_read(const char *path, GameState *state)
         return MAP_LOAD_OPEN_FAILED;
     }
 
-    if (fscanf(file, "%d %d", &candidate.rows, &candidate.columns) != 2) {
+    if (read_integer_token(file, &candidate.rows) != TOKEN_READ_OK
+            || read_integer_token(file, &candidate.columns) != TOKEN_READ_OK) {
         result = MAP_LOAD_INVALID_DIMENSIONS;
         goto finish;
     }
@@ -37,8 +95,14 @@ MapLoadResult map_loader_read(const char *path, GameState *state)
             int cell;
             Position position = {row, column};
 
-            if (fscanf(file, "%d", &cell) != 1) {
+            TokenReadResult token_result = read_integer_token(file, &cell);
+
+            if (token_result == TOKEN_READ_END) {
                 result = MAP_LOAD_TRUNCATED;
+                goto finish;
+            }
+            if (token_result == TOKEN_READ_INVALID) {
+                result = MAP_LOAD_INVALID_CELL;
                 goto finish;
             }
 
@@ -71,8 +135,7 @@ MapLoadResult map_loader_read(const char *path, GameState *state)
 
     {
         int trailing_value;
-        int trailing_result = fscanf(file, " %d", &trailing_value);
-        if (trailing_result != EOF) {
+        if (read_integer_token(file, &trailing_value) != TOKEN_READ_END) {
             result = MAP_LOAD_TRAILING_DATA;
             goto finish;
         }
@@ -113,4 +176,3 @@ const char *map_loader_result_message(MapLoadResult result)
             return "The map is invalid.";
     }
 }
-

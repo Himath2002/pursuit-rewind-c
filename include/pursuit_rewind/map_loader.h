@@ -15,8 +15,13 @@ typedef enum {
     MAP_LOAD_TRAILING_DATA
 } MapLoadResult;
 
+/**
+ * Validates and decodes the complete map at path. State is updated only after
+ * every dimension, cell, actor count, and trailing-data check succeeds.
+ */
 MapLoadResult map_loader_read(const char *path, GameState *state);
+
+/** Returns an actionable user-facing message for a map-load result. */
 const char *map_loader_result_message(MapLoadResult result);
 
 #endif
-

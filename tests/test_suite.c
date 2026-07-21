@@ -47,6 +47,10 @@ static void test_map_loader_rejects_invalid_maps(void)
     GameState state;
 
     EXPECT_TRUE(map_loader_read(
+            "tests/fixtures/invalid-dimensions.map",
+            &state
+    ) == MAP_LOAD_INVALID_DIMENSIONS);
+    EXPECT_TRUE(map_loader_read(
             "tests/fixtures/duplicate-player.map",
             &state
     ) == MAP_LOAD_DUPLICATE_ACTOR);
@@ -58,6 +62,18 @@ static void test_map_loader_rejects_invalid_maps(void)
             "tests/fixtures/invalid-cell.map",
             &state
     ) == MAP_LOAD_INVALID_CELL);
+    EXPECT_TRUE(map_loader_read(
+            "tests/fixtures/invalid-number.map",
+            &state
+    ) == MAP_LOAD_INVALID_CELL);
+    EXPECT_TRUE(map_loader_read(
+            "tests/fixtures/missing-target.map",
+            &state
+    ) == MAP_LOAD_MISSING_ACTOR);
+    EXPECT_TRUE(map_loader_read(
+            "tests/fixtures/trailing-data.map",
+            &state
+    ) == MAP_LOAD_TRAILING_DATA);
 }
 
 static void test_player_wraps_across_both_axes(void)
@@ -100,6 +116,19 @@ static void test_adjacent_pursuer_chases(void)
     state.pursuer = (Position){3, 3};
 
     movement_advance_pursuer(&state, 7);
+    game_update_status(&state);
+
+    EXPECT_TRUE(game_positions_equal(state.player, state.pursuer));
+    EXPECT_TRUE(state.status == GAME_PLAYER_CAUGHT);
+}
+
+static void test_adjacent_pursuer_chases_across_wrap_boundary(void)
+{
+    GameState state = new_state();
+    state.player = (Position){1, 4};
+    state.pursuer = (Position){5, 4};
+
+    movement_advance_pursuer(&state, 3);
     game_update_status(&state);
 
     EXPECT_TRUE(game_positions_equal(state.player, state.pursuer));
@@ -150,6 +179,7 @@ int main(void)
     test_distant_pursuer_wraps();
     test_pursuer_protects_target_cell();
     test_adjacent_pursuer_chases();
+    test_adjacent_pursuer_chases_across_wrap_boundary();
     test_history_restores_in_lifo_order();
     test_target_arrival_has_priority();
 
@@ -161,4 +191,3 @@ int main(void)
     puts("All Pursuit Rewind checks passed.");
     return EXIT_SUCCESS;
 }
-
