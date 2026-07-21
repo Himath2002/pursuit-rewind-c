@@ -197,7 +197,8 @@ Focused checks verify:
 - LIFO history restoration of both actors;
 - target-arrival precedence.
 
-CI repeats the build and checks on Ubuntu and macOS.
+CI repeats the build and checks on Ubuntu and macOS, while Dependabot reviews
+GitHub Actions versions monthly.
 
 ## Project structure
 

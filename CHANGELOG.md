@@ -15,6 +15,7 @@ Notable changes to Pursuit Rewind are recorded here. The project follows
 - Immediate target victory and protected target-cell pursuit rules.
 - Strict C11 build and focused verification suite.
 - Ubuntu and macOS continuous integration.
+- Monthly GitHub Actions dependency review.
 - Project-specific architecture and gameplay visuals.
 
 ### Changed
