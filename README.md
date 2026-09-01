@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/hero.svg" alt="Pursuit Rewind — a map-driven terminal chase with constant-time undo" width="100%">
+  <img src="docs/hero.svg" alt="Pursuit Rewind - a map-driven terminal chase with constant-time undo" width="100%">
 </p>
 
 <p align="center">
@@ -31,17 +31,17 @@ history stack.
 
 ### Product highlights
 
-- <strong>Map-defined sessions</strong> — dimensions and actor positions come
+- <strong>Map-defined sessions</strong> - dimensions and actor positions come
   from a plain-text contract.
-- <strong>Fail-fast validation</strong> — malformed dimensions, cell values,
+- <strong>Fail-fast validation</strong> - malformed dimensions, cell values,
   duplicates, missing actors, truncation, and trailing data are rejected.
-- <strong>Toroidal movement</strong> — crossing an edge re-enters from the
+- <strong>Toroidal movement</strong> - crossing an edge re-enters from the
   opposite side, including direct pursuit across a map seam.
-- <strong>Atomic undo</strong> — player and pursuer positions are restored
+- <strong>Atomic undo</strong> - player and pursuer positions are restored
   together from an O(1) LIFO stack.
-- <strong>Immediate victory</strong> — reaching the target ends the turn before
+- <strong>Immediate victory</strong> - reaching the target ends the turn before
   the pursuer moves.
-- <strong>Local execution</strong> — no external dependencies, network calls,
+- <strong>Local execution</strong> - no external dependencies, network calls,
   saved data, or shell commands.
 
 ## Build and play
