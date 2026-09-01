@@ -48,7 +48,7 @@
     <circle cx="28" cy="27" r="7" fill="#FF7B72"/>
     <circle cx="52" cy="27" r="7" fill="#FDBA74"/>
     <circle cx="76" cy="27" r="7" fill="#7EE787"/>
-    <text x="302" y="32" text-anchor="middle" fill="#BCB7D2" font-family="Arial, sans-serif" font-size="12">pursuit-rewind — maps/edge-run.map</text>
+    <text x="302" y="32" text-anchor="middle" fill="#BCB7D2" font-family="Arial, sans-serif" font-size="12">pursuit-rewind - maps/edge-run.map</text>
 
     <text x="32" y="91" fill="#A78BFA" font-family="Courier New, monospace" font-size="14">$ ./build/pursuit-rewind maps/edge-run.map</text>
     <text x="32" y="126" fill="#67E8F9" font-family="Courier New, monospace" font-size="14" font-weight="700">PURSUIT REWIND</text>
